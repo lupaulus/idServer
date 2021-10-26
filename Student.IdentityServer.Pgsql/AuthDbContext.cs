@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Student.IdentityServer
+namespace Student.IdentityServer.Pgsql
 {
     public class AuthDbContext : DbContext
     {

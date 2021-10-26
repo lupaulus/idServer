@@ -3,7 +3,7 @@ services:
   identity:
     build:
       context: .
-      dockerfile: asp.dockerfile
+      dockerfile: asp.Dockerfile
     ports:
     - "443:443"
     - "80:80"
@@ -22,7 +22,7 @@ services:
     volumes:
        - postgres:/data/postgres
     ports:
-      - "5432:5432"
+       - "5432:5432"
     networks:
       - postgres
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
     volumes:
        - pgadmin:/var/lib/pgadmin
     ports:
-      - "5050:8080"
+      - "5050:80"
     networks:
       - postgres
     restart: unless-stopped

@@ -1,15 +1,11 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4.EntityFramework;
-using IdentityServerHost.Quickstart.UI;
+﻿using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Student.IdentityServer.Pgsql;
 
 namespace Student.IdentityServer
 {
@@ -52,10 +48,10 @@ namespace Student.IdentityServer
             builder.AddDeveloperSigningCredential()
                 .AddConfigurationStore(option =>
                            option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
-                           options.MigrationsAssembly("Student.IndentityServer")))
+                           options.MigrationsAssembly("Student.IdentityServer.Pgsql")))
                 .AddOperationalStore(option =>
                            option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
-                           options.MigrationsAssembly("Student.IndentityServer")));
+                           options.MigrationsAssembly("Student.IdentityServer.Pgsql")));
 
 
 

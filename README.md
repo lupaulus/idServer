@@ -8,3 +8,14 @@ Run Identity Server 4
 ```
 docker run -p 80:80 -p 443:443 -p 5001:5001 -p 44300:44300 -it $(docker build -q .)
 ```
+
+
+
+# EF Core
+
+
+```
+Add-Migration InitialCreate -Context PersistedGrantDbContext -Output Migrations/PersistedGrantDb
+
+Add-Migration InitialCreate -Context ConfigurationDbContext -Output Migrations/ConfigurationDb
+```
