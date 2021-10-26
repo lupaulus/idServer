@@ -2,10 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using IdentityServer4;
+using IdentityServer4.EntityFramework;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +28,9 @@ namespace Student.IdentityServer
         {
             services.AddControllersWithViews();
 
+            services.AddDbContext<AuthDbContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql")));
+
             var builder = services.AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
@@ -40,28 +44,39 @@ namespace Student.IdentityServer
                 .AddTestUsers(TestUsers.Users);
 
             // in-memory, code config
-            builder.AddInMemoryIdentityResources(Config.IdentityResources);
-            builder.AddInMemoryApiScopes(Config.ApiScopes);
-            builder.AddInMemoryClients(Config.Clients);
+            //builder.AddInMemoryIdentityResources(Config.IdentityResources);
+            //builder.AddInMemoryApiScopes(Config.ApiScopes);
+            //builder.AddInMemoryClients(Config.Clients);
 
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            builder.AddDeveloperSigningCredential()
+                .AddConfigurationStore(option =>
+                           option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
+                           options.MigrationsAssembly("Student.IndentityServer")))
+                .AddOperationalStore(option =>
+                           option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
+                           options.MigrationsAssembly("Student.IndentityServer")));
 
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to https://localhost:5001/signin-google
-                    options.ClientId = "copy client ID from Google here";
-                    options.ClientSecret = "copy client secret from Google here";
-                });
+
+
+            //services.AddAuthentication()
+            //    .AddGoogle(options =>
+            //    {
+            //        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+            //        // register your IdentityServer with Google at https://console.developers.google.com
+            //        // enable the Google+ API
+            //        // set the redirect URI to https://localhost:5001/signin-google
+            //        options.ClientId = "copy client ID from Google here";
+            //        options.ClientSecret = "copy client secret from Google here";
+            //    });
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, AuthDbContext context)
         {
+            DatabaseInitializer.Initialize(app, context);
+
+
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

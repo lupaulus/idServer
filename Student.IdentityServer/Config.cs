@@ -1,8 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
 using System.Collections.Generic;
 
 namespace Student.IdentityServer
@@ -14,6 +10,7 @@ namespace Student.IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResources.Email()
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -21,6 +18,12 @@ namespace Student.IdentityServer
             {
                 new ApiScope("scope1"),
                 new ApiScope("scope2"),
+            };
+
+        public static IEnumerable<ApiResource> ApiResources =>
+            new List<ApiResource>
+            {
+                new ApiResource("yourcustomapi", "Your Custom API")
             };
 
         public static IEnumerable<Client> Clients =>
