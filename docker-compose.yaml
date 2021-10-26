@@ -9,17 +9,15 @@ services:
     - "80:80"
     - "50000:50000"
     container_name: identity
-    volumes:
-    - ./jenkins_home:/var/jenkins_home
-    - /var/run/docker.sock:/var/run/docker.sock
-    - /usr/local/bin/docker:/usr/local/bin/docker
+    networks:
+      - postgres
     
   postgres:
     container_name: postgres
     image: postgres:alpine3.14
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
       PGDATA: /data/postgres
     volumes:
        - postgres:/data/postgres
@@ -33,14 +31,13 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4:6.1
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
        - pgadmin:/var/lib/pgadmin
-
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - "5050:8080"
     networks:
       - postgres
     restart: unless-stopped
