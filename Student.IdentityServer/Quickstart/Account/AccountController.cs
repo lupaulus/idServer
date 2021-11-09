@@ -107,7 +107,12 @@ namespace IdentityServerHost.Quickstart.UI
                 }
             }
 
-            if (ModelState.IsValid)
+            if (button == "createAccount")
+            {
+                return View("CreateAccount", new CreateAccountViewModel());
+            }
+
+            if (button == "login" && ModelState.IsValid)
             {
                 // validate username/password against in-memory store
                 if (_users.ValidateCredentials(model.Username, model.Password))
