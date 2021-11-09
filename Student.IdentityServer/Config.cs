@@ -1,5 +1,7 @@
 ﻿using IdentityServer4.Models;
 using System.Collections.Generic;
+using IdentityModel;
+using IdentityServer4;
 
 namespace Student.IdentityServer
 {
@@ -10,7 +12,8 @@ namespace Student.IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email()
+                new IdentityResources.Email(),
+                new IdentityResource("Id", "UserId", new[] {"sub"})
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -23,7 +26,11 @@ namespace Student.IdentityServer
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>
             {
-                new ApiResource("yourcustomapi", "Your Custom API")
+                new ApiResource("Api", "API that allow  creation")
+                {
+                    // include the following using claims in access token (in addition to subject id)
+                    UserClaims = { JwtClaimTypes.Email, JwtClaimTypes.Id, JwtClaimTypes.Subject },
+                }
             };
 
         public static IEnumerable<Client> Clients =>
@@ -55,6 +62,30 @@ namespace Student.IdentityServer
 
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "scope2" }
+                },
+
+                new Client
+                {
+                    ClientId = "Web",
+                    ClientName = "MVC Client",
+                    ClientSecrets = {new Secret("secret".Sha256())},
+
+                    RedirectUris = { "https://localhost:44300/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
+
+                    RequireConsent = false,
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                    },
+
+                    AllowOfflineAccess = true,
+                    RequireClientSecret = false,
+                    RefreshTokenUsage = TokenUsage.ReUse,
+
+                    AllowedGrantTypes = GrantTypes.Hybrid,
                 },
             };
     }

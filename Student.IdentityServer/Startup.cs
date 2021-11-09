@@ -36,8 +36,9 @@ namespace Student.IdentityServer
 
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
-            })
-                .AddTestUsers(TestUsers.Users);
+            });
+            
+            //.AddTestUsers(TestUsers.Users);
 
             // in-memory, code config
             //builder.AddInMemoryIdentityResources(Config.IdentityResources);
