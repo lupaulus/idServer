@@ -1,0 +1,86 @@
+﻿@model CreateAccountViewModel
+
+<div class="mx-auto" style="width: 800px;">
+
+    <h1>Formulaire</h1>
+    <br>
+    <div class="card">
+        <form (submit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="civilite">Civilite : </label>
+                    <select required name="civility" [formControl]="civility" type="text" id="civilite">
+                        <option value="Monsieur">M.</option>
+                        <option value="Madame">Mme</option>
+                        <option value="Bisexe">Autre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nom">Nom : </label>
+                    <input required name="nom" value="Paulus" [formControl]="lastname" (input)="changeValues()" id="nom" type="text">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="prenom">Prénom :</label>
+                    <input required name="prenom" [formControl]="firstname" (input)="changeValues()" value="Lucas" id="prenom" type="text">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="adresse">Adresse : </label>
+                    <input required name="adresse" [formControl]="address" (input)="changeValues()" type="text" value="99 Rue de Quelque Part" id="adresse" size="50">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cp">Code Postal : </label>
+                    <input required name="cp" [formControl]="zipcode" (input)="changeValues()" type="text" value="67000" id="cp" maxlength="5">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ville">Ville : </label>
+                    <input required name="ville" [formControl]="city" (input)="changeValues()" type="text" value="Strasbourg" id="ville">
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="tel">Téléphone : </label>
+                    <input required name="tel" [formControl]="tel" (input)="changeValues()" value="011110201" type="tel" maxlength="10">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email : </label>
+                    <input required name="email" [formControl]="mail" (input)="changeValues()" value="lpaulus@cfai-formation.fr" type="email" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-12">
+                    <label for="pays">Pays : </label>
+                    <input required name="pays" [formControl]="country" (input)="changeValues()" type="text" id="pays">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="login">Login : </label>
+                    <input required name="login" [formControl]="login" (input)="changeValues()" type="text" value="login" id="login">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="password">Password : </label>
+                    <input required name="password" [formControl]="password" (input)="changeValues()" type="password" id="password">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="confirm">Confirm password : </label>
+                    <input required name="confirm" [formControl]="confirm" (input)="changeValues()" type="password" id="confirm">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+    </div>
+</div>
