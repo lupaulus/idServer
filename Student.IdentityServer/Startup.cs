@@ -1,10 +1,11 @@
-﻿using IdentityServerHost.Quickstart.UI;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Student.IdentityServer.Model;
 using Student.IdentityServer.Pgsql;
 
 namespace Student.IdentityServer
@@ -27,6 +28,10 @@ namespace Student.IdentityServer
             services.AddDbContext<AuthDbContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql")));
 
+            services.AddIdentity<StudentUser, IdentityRole>()
+                .AddEntityFrameworkStores<AuthDbContext>()
+                .AddDefaultTokenProviders();
+
             var builder = services.AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
@@ -36,8 +41,9 @@ namespace Student.IdentityServer
 
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
-            });
-            
+            })
+                .AddAspNetIdentity<StudentUser>();
+
             //.AddTestUsers(TestUsers.Users);
 
             // in-memory, code config
@@ -85,6 +91,7 @@ namespace Student.IdentityServer
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
