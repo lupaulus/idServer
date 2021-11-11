@@ -6,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Student.IdentityServer.Model;
+using Student.IdentityServer.Model.Store;
 using Student.IdentityServer.Pgsql;
+using Student.IdentityServer.Pgsql.Store;
 
 namespace Student.IdentityServer
 {
@@ -61,6 +63,8 @@ namespace Student.IdentityServer
                            options.MigrationsAssembly("Student.IdentityServer.Pgsql")));
 
 
+            // DI
+            services.AddScoped<IStudentStore, StudentStorePgSql>();
 
             //services.AddAuthentication()
             //    .AddGoogle(options =>

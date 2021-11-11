@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace IdentityServerHost.Quickstart.UI
 {
-    public class CreateAccountViewModel
+    public class CreateAccountViewModel 
     {
 
 
