@@ -3,18 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Student.IdentityServer.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Student.IdentityServer.Pgsql
 {
-    public class AuthDbContext : DbContext
+    public class AuthDbContext : IdentityDbContext<StudentUser>
     {
         public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
         }
+        public DbSet<StudentUser> StudentSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<StudentUser>().ToTable("StudentUser");
         }
+
     }
 }

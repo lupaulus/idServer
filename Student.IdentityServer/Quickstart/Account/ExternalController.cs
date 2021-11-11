@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Student.IdentityServer.Model;
+using Student.IdentityServer.Model.Store;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -21,7 +23,7 @@ namespace IdentityServerHost.Quickstart.UI
     [AllowAnonymous]
     public class ExternalController : Controller
     {
-        private readonly TestUserStore _users;
+        private readonly IStudentStore _users;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly ILogger<ExternalController> _logger;
@@ -32,11 +34,11 @@ namespace IdentityServerHost.Quickstart.UI
             IClientStore clientStore,
             IEventService events,
             ILogger<ExternalController> logger,
-            TestUserStore users = null)
+            IStudentStore users)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users ?? new TestUserStore(TestUsers.Users);
+            _users = users;
 
             _interaction = interaction;
             _clientStore = clientStore;
@@ -111,9 +113,9 @@ namespace IdentityServerHost.Quickstart.UI
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
             
             // issue authentication cookie for user
-            var isuser = new IdentityServerUser(user.SubjectId)
+            var isuser = new IdentityServerUser(user.Id)
             {
-                DisplayName = user.Username,
+                DisplayName = user.UserName,
                 IdentityProvider = provider,
                 AdditionalClaims = additionalLocalClaims
             };
@@ -128,7 +130,7 @@ namespace IdentityServerHost.Quickstart.UI
 
             // check if external login is in the context of an OIDC request
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.SubjectId, user.Username, true, context?.Client.ClientId));
+            await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.Id, user.UserName, true, context?.Client.ClientId));
 
             if (context != null)
             {
@@ -143,7 +145,7 @@ namespace IdentityServerHost.Quickstart.UI
             return Redirect(returnUrl);
         }
 
-        private (TestUser user, string provider, string providerUserId, IEnumerable<Claim> claims) FindUserFromExternalProvider(AuthenticateResult result)
+        private (StudentUser user, string provider, string providerUserId, IEnumerable<Claim> claims) FindUserFromExternalProvider(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 
@@ -167,7 +169,7 @@ namespace IdentityServerHost.Quickstart.UI
             return (user, provider, providerUserId, claims);
         }
 
-        private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
+        private StudentUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
         {
             var user = _users.AutoProvisionUser(provider, providerUserId, claims.ToList());
             return user;
