@@ -43,16 +43,25 @@
                             }
                             <button class="btn btn-primary" name="button" value="login">Login</button>
                             <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
-                            <button class="btn btn-secondary" name="button" value="createAccount">Create Account</button>
                         </form>
                     </div>
                 </div>
             </div>
         }
 
-        @if (Model.VisibleExternalProviders.Any())
-        {
-            <div class="col-sm-6">
+        
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Create Account</h2>
+                </div>
+                <div class="card-body">
+                    <button onclick="location.href = '@Url.Action("CreateAccount")'" class="btn btn-primary">Create Account</button>
+                    <a href="@Url.Action("CreateAccount")">Create Account</a>
+                </div>
+            </div>
+            @if (Model.VisibleExternalProviders.Any())
+            {
                 <div class="card">
                     <div class="card-header">
                         <h2>External Account</h2>
@@ -74,8 +83,9 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        
 
         @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
         {

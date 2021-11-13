@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -18,7 +19,7 @@ namespace IdentityServerHost.Quickstart.UI
     {
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IWebHostEnvironment _environment;
-        private readonly ILogger _logger;
+        private readonly Microsoft.Extensions.Logging.ILogger _logger;
 
         public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment, ILogger<HomeController> logger)
         {
@@ -29,12 +30,15 @@ namespace IdentityServerHost.Quickstart.UI
 
         public IActionResult Index()
         {
+            //if(_environment.IsDevelopment())
+            //{
+            //    // only show in development
+            //    return View();
+            //}
+            
 
-            // only show in development
-            return View();
-
-            // _logger.LogInformation("Homepage is disabled in production. Returning 404.");
-            // return NotFound();
+            Log.Information("Homepage is disabled in production. Returning LoginPage.");
+            return RedirectPermanent("~/Account/Login");
         }
 
         /// <summary>

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student.IdentityServer.Pgsq
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3602F52E-00B1-41A6-A66F-2E89E978DD54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Student.IdentityServer.DI", "..\Student.IdentityServer.DI\Student.IdentityServer.DI.csproj", "{97F1F476-043F-46B2-AB52-9C3A0826EEB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{3602F52E-00B1-41A6-A66F-2E89E978DD54}.Release|x64.Build.0 = Release|Any CPU
 		{3602F52E-00B1-41A6-A66F-2E89E978DD54}.Release|x86.ActiveCfg = Release|Any CPU
 		{3602F52E-00B1-41A6-A66F-2E89E978DD54}.Release|x86.Build.0 = Release|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Debug|x64.Build.0 = Debug|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Debug|x86.Build.0 = Debug|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Release|x64.ActiveCfg = Release|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Release|x64.Build.0 = Release|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Release|x86.ActiveCfg = Release|Any CPU
+		{97F1F476-043F-46B2-AB52-9C3A0826EEB6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
