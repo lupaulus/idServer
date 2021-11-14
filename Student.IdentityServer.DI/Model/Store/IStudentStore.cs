@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 
-namespace Student.IdentityServer.Model.Store
+namespace Student.IdentityServer.DI.Model.Store
 {
     public interface IStudentStore : IUserStore<StudentUser>
     {

@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Student.IdentityServer.Model.Store;
+using Student.IdentityServer.DI.Model.Store;
 
 namespace IdentityServerHost.Quickstart.UI
 {
