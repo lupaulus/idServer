@@ -4,8 +4,8 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Student.IdentityServer.Model;
-using Student.IdentityServer.Model.Store;
+using Student.IdentityServer.DI.Model;
+using Student.IdentityServer.DI.Model.Store;
 
 namespace Student.IdentityServer.Pgsql.Store
 {

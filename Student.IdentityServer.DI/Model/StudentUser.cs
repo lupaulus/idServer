@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Identity;
 
-namespace Student.IdentityServer.Model
+namespace Student.IdentityServer.DI.Model
 {
     public enum TypeCivility
     {

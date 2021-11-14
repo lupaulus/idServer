@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Student.IdentityServer.Model;
-using Student.IdentityServer.Model.Store;
+using Student.IdentityServer.DI.Model;
+using Student.IdentityServer.DI.Model.Store;
 using Student.IdentityServer.Pgsql;
 using Student.IdentityServer.Pgsql.Store;
 
