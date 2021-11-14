@@ -14,8 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Student.IdentityServer.Model;
-using Student.IdentityServer.Model.Store;
+using Student.IdentityServer.DI.Model;
+using Student.IdentityServer.DI.Model.Store;
 
 namespace IdentityServerHost.Quickstart.UI
 {
