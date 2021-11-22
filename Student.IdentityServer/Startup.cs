@@ -20,6 +20,7 @@ namespace Student.IdentityServer
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
+
             Configuration = configuration;
         }
 
