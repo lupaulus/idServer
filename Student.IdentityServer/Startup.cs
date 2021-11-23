@@ -44,8 +44,8 @@ namespace Student.IdentityServer
 
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
-            })
-                .AddAspNetIdentity<StudentUser>();
+            });
+                
 
             //.AddTestUsers(TestUsers.Users);
 
@@ -62,6 +62,7 @@ namespace Student.IdentityServer
                 .AddOperationalStore(option =>
                            option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
                            options.MigrationsAssembly("Student.IdentityServer.Pgsql")));
+            builder.AddAspNetIdentity<StudentUser>();
 
 
             // DI
