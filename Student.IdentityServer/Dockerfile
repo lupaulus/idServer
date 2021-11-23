@@ -16,6 +16,8 @@ FROM build AS publish
 RUN dotnet publish "Student.IdentityServer.csproj" -c Release -o /app/publish
 
 FROM base AS final
+ARG ASP_CONFIGURATION=Production
+ENV ASPNETCORE_ENVIRONMENT=ASP_CONFIGURATION
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Student.IdentityServer.dll"]
