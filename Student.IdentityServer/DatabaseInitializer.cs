@@ -15,10 +15,7 @@ namespace Student.IdentityServer
     {
         public static void Initialize(IApplicationBuilder app, AuthDbContext context)
         {
-            context.Database.EnsureCreated();
-
-            InitializeTokenServerConfigurationDatabase(app);
-
+            //InitializeTokenServerConfigurationDatabase(app);
             context.SaveChanges();
         }
 

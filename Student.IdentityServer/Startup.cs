@@ -30,6 +30,8 @@ namespace Student.IdentityServer
 
             services.AddDbContext<AuthDbContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql")));
+            services.AddDbContext<IdentityServerDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql")));
 
             services.AddIdentity<StudentUser, IdentityRole>()
                 .AddEntityFrameworkStores<AuthDbContext>()
@@ -45,24 +47,22 @@ namespace Student.IdentityServer
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             });
-                
+
 
             //.AddTestUsers(TestUsers.Users);
 
             // in-memory, code config
-            //builder.AddInMemoryIdentityResources(Config.IdentityResources);
-            //builder.AddInMemoryApiScopes(Config.ApiScopes);
-            //builder.AddInMemoryClients(Config.Clients);
+            builder.AddInMemoryIdentityResources(Config.IdentityResources);
+            builder.AddInMemoryApiScopes(Config.ApiScopes);
+            builder.AddInMemoryClients(Config.Clients);
 
 
-            builder.AddDeveloperSigningCredential()
-                .AddConfigurationStore(option =>
-                           option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
-                           options.MigrationsAssembly("Student.IdentityServer.Pgsql")))
-                .AddOperationalStore(option =>
-                           option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql"), options =>
-                           options.MigrationsAssembly("Student.IdentityServer.Pgsql")));
-            builder.AddAspNetIdentity<StudentUser>();
+            //builder.AddDeveloperSigningCredential()
+            //    .AddConfigurationStore(option =>
+            //               option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql")))
+            //    .AddOperationalStore(option =>
+            //               option.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("IdentityServerConnectionPgSql")));
+            //builder.AddAspNetIdentity<StudentUser>();
 
 
             // DI
@@ -81,15 +81,17 @@ namespace Student.IdentityServer
             //    });
         }
 
-        public void Configure(IApplicationBuilder app, AuthDbContext context)
+        public void Configure(IApplicationBuilder app, AuthDbContext context, IdentityServerDbContext identityServerDbContext)
         {
             DatabaseInitializer.Initialize(app, context);
             context.Database.Migrate();
+            //identityServerDbContext.Database.Migrate();
 
 
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
 
             app.UseStaticFiles();
