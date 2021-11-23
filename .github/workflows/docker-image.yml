@@ -16,10 +16,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Student.IdentityServer/Dockerfile --tag student-identityserver:$(date +%s)
-    
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
     - name: Build, Push and Release a Docker container to Heroku. 
       uses: gonuit/heroku-docker-deploy@v1.3.3 
       with:
@@ -38,7 +34,7 @@ jobs:
         # (Optional, default: "./")
         # Dockerfile directory.
         # For example, if you have a Dockerfile in the root of your project, leave it as follows:
-        dockerfile_directory: ./Student.IdentityServer
+        dockerfile_directory: Student.IdentityServer/
 
         # (Optional, default: "Dockerfile")
         # Dockerfile name.
