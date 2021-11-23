@@ -13,7 +13,6 @@ namespace Student.IdentityServer.Pgsql
         public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
         }
-        public DbSet<StudentUser> StudentSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

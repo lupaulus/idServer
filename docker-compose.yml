@@ -4,7 +4,7 @@ services:
   student.identityserver:
     image: ${DOCKER_REGISTRY-}studentidentityserver
     environment:
-      ASPNETCORE_ENVIRONMENT: 'Production'
+      ASPNETCORE_ENVIRONMENT: 'Development'
     build:
       context: .
       dockerfile: Student.IdentityServer/Dockerfile

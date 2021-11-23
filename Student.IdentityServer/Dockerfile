@@ -16,7 +16,7 @@ FROM build AS publish
 RUN dotnet publish "Student.IdentityServer.csproj" -c Release -o /app/publish
 
 FROM base AS final
-ARG ASP_CONFIGURATION=Production
+ARG ASP_CONFIGURATION=Development
 ENV ASPNETCORE_ENVIRONMENT=ASP_CONFIGURATION
 WORKDIR /app
 COPY --from=publish /app/publish .
