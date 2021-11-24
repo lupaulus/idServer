@@ -37,4 +37,8 @@
     <ProjectReference Include="..\Student.IdentityServer.Pgsql\Student.IdentityServer.Pgsql.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dockerfile.original" />
+  </ItemGroup>
+
 </Project>

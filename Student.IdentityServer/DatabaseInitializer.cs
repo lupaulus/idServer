@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Student.IdentityServer.DI.Model.Store;
 using Student.IdentityServer.Pgsql;
 
 namespace Student.IdentityServer
@@ -15,10 +16,7 @@ namespace Student.IdentityServer
     {
         public static void Initialize(IApplicationBuilder app, AuthDbContext context)
         {
-            context.Database.EnsureCreated();
-
-            InitializeTokenServerConfigurationDatabase(app);
-
+            //InitializeTokenServerConfigurationDatabase(app);
             context.SaveChanges();
         }
 
