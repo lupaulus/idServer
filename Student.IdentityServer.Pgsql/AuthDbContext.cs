@@ -22,5 +22,6 @@ namespace Student.IdentityServer.Pgsql
             builder.Entity<StudentUser>().ToTable("StudentUser");
         }
 
+
     }
 }

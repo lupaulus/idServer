@@ -81,7 +81,7 @@ namespace Student.IdentityServer
             //    });
         }
 
-        public void Configure(IApplicationBuilder app, AuthDbContext context, IdentityServerDbContext identityServerDbContext)
+        public void Configure(IApplicationBuilder app, AuthDbContext context)
         {
             DatabaseInitializer.Initialize(app, context);
             context.Database.Migrate();

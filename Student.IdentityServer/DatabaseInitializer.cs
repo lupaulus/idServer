@@ -14,12 +14,8 @@ namespace Student.IdentityServer
 {
     public class DatabaseInitializer
     {
-        public static void Initialize(IApplicationBuilder app, AuthDbContext context, IStudentStore studentStore)
+        public static void Initialize(IApplicationBuilder app, AuthDbContext context)
         {
-            // Add Test User
-            studentStore.CreateAsync()
-                
-            
             //InitializeTokenServerConfigurationDatabase(app);
             context.SaveChanges();
         }
