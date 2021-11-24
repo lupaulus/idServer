@@ -7,14 +7,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Student.IdentityServer.DI.Model.Store;
 using Student.IdentityServer.Pgsql;
 
 namespace Student.IdentityServer
 {
     public class DatabaseInitializer
     {
-        public static void Initialize(IApplicationBuilder app, AuthDbContext context)
+        public static void Initialize(IApplicationBuilder app, AuthDbContext context, IStudentStore studentStore)
         {
+            // Add Test User
+            studentStore.CreateAsync()
+                
+            
             //InitializeTokenServerConfigurationDatabase(app);
             context.SaveChanges();
         }
